@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.json())
    .use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
+   .set('controllers', path.join(__dirname, 'controllers'))
    .set('view engine', 'ejs')
    .get('/', (req, res) => res.render('pages/index'))
    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
@@ -18,14 +19,8 @@ app.post('/errors', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/find-restaurant', (req, res) => {
-    console.log("[POST] /test");
-    res.json({
-      replies: [
-        { type: 'text', content: `I still have to implement the skill find restaurant` },
-      ],
-    });
-});
+// Setting up the routes
+app.post('/find-restaurant', findRestaurants);
 
 app.post('/find-restaurant-by-cuisine', (req, res) => {
     console.log("[POST] /test");
