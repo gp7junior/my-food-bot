@@ -22,7 +22,7 @@ app.post('/test', (req, res) => {
     console.log("[POST] /test");
     res.json({
       replies: [
-        { type: 'text', content: `Sorry I cannot help you` },
+        { type: 'text', content: `I still have to implement this skill: restaurant-cuisine ` },
       ],
     });
 });
