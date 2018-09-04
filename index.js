@@ -18,11 +18,20 @@ app.post('/errors', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/place-to-eat-by-cuisine', (req, res) => {
+app.post('/find-restaurant', (req, res) => {
     console.log("[POST] /test");
     res.json({
       replies: [
-        { type: 'text', content: `I still have to implement this skill: restaurant-cuisine ` },
+        { type: 'text', content: `I still have to implement the skill find restaurant` },
+      ],
+    });
+});
+
+app.post('/find-restaurant-by-cuisine', (req, res) => {
+    console.log("[POST] /test");
+    res.json({
+      replies: [
+        { type: 'text', content: `I still have to implement this skill find restaurant by cuisine ` },
       ],
     });
 });
