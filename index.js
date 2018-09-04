@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 const app = express();
 app.use(bodyParser.json())
    .use(express.static(path.join(__dirname, 'public')))
-   .use(express.static(path.join(__dirname, 'controllers')))
+   //.use(express.static(path.join(__dirname, 'controllers')))
    .set('views', path.join(__dirname, 'views'))
    .set('view engine', 'ejs')
    .get('/', (req, res) => res.render('pages/index'))
