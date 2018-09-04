@@ -4,7 +4,6 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const app = express();
-require('./controllers')(app);
 app.use(bodyParser.json())
    .use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
@@ -20,7 +19,7 @@ app.post('/errors', (req, res) => {
 });
 
 // Setting up the routes
-app.post('/find-restaurant', findRestaurants);
+//app.post('/find-restaurant', findRestaurants);
 
 app.post('/find-restaurant-by-cuisine', (req, res) => {
     res.json({
