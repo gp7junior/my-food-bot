@@ -20,6 +20,13 @@ app.post('/errors', (req, res) => {
 
 // Setting up the routes
 //app.post('/find-restaurant', findRestaurants);
+app.post('/find-restaurant', (req, res) => {
+    res.json({
+      replies: [
+        { type: 'text', content: `I still have to implement this skill find restaurant` },
+      ],
+    });
+});
 
 app.post('/find-restaurant-by-cuisine', (req, res) => {
     res.json({
