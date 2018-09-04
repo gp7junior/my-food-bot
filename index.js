@@ -18,7 +18,7 @@ app.post('/errors', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/test', (req, res) => {
+app.post('/place-to-eat-by-cuisine', (req, res) => {
     console.log("[POST] /test");
     res.json({
       replies: [
