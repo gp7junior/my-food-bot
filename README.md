@@ -1,4 +1,4 @@
-# my food bot curator
+# my food bot curator :robot:
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
 
