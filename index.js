@@ -1,4 +1,5 @@
 const express = require('express')
+const request = require('request');
 const bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 5000
@@ -21,6 +22,21 @@ app.post('/errors', (req, res) => {
 // Setting up the routes
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
+
+    const options = {
+      url: 'https://362a6880.ngrok.io/my_food/query',
+      method: 'GET',
+      headers: {
+          'template': 'application/json',
+          'query': 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25'
+      }
+    };
+
+    request(options, function(err, res, body) {
+      let json = JSON.parse(body);
+      console.log(json);
+    });
+
     res.json({
       replies: [
         { type: 'text', content: `I still have to implement this skill find restaurant` },

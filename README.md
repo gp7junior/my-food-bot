@@ -28,7 +28,7 @@ or
 
 or
 
-## Deploying to GitHub
+## Deploying to GitHub (smart way 🤓)
 
 ```
 $ git init
