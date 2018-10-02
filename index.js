@@ -41,15 +41,15 @@ app.post('/find-restaurant', (req, res) => {
     //   let json = JSON.parse(body);
     //   console.log(json);
     // });
-
-    client.query( SPARQL 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25')
-      .execute();
-
     res.json({
       replies: [
         { type: 'text', content: `I still have to implement this skill find restaurant` },
       ],
     });
+
+    client.query( SPARQL 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25')
+      .execute();
+
 });
 
 app.post('/find-restaurant-by-cuisine', (req, res) => {
