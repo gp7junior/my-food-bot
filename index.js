@@ -24,11 +24,9 @@ app.post('/errors', (req, res) => {
 app.post('/find-restaurant', (req, res) => {
 
     const options = {
-      url: 'https://362a6880.ngrok.io/my_food/query',
-      method: 'GET',
-      headers: {
-        'query': 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25'
-      }
+      url: 'https://362a6880.ngrok.io/my_food/query=SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25',
+      method: 'POST',
+
     };
 
     request(options, function(err, res, body) {
