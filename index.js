@@ -13,10 +13,10 @@ app.use(bodyParser.json())
    .get('/', (req, res) => res.render('pages/index'))
    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const client = new SparqlClient('https://362a6880.ngrok.io/my_food/sparql')
-   .register(
-     db: 'https://362a6880.ngrok.io/my_food/'
-   );
+// const client = new SparqlClient('https://362a6880.ngrok.io/my_food/sparql')
+//    .register(
+//      db: 'https://362a6880.ngrok.io/my_food/'
+//    );
 
 // Recast will send a post request to /errors to notify important errors
 // described in a json body
@@ -29,16 +29,21 @@ app.post('/errors', (req, res) => {
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
 
-    // const options = {
-    //   url: 'https://362a6880.ngrok.io/my_food/sparql',
-    //   method: 'POST',
-    //   headers: {
-    //     'query': 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25'
-    //   }
-    // };
+    const options = {
+      url: 'https://362a6880.ngrok.io/my_food/sparql',
+      method: 'POST',
+      headers: {
+        'query': 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25'
+      }
+    };
 
-    client.query( SPARQL 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25')
-      .execute();
+    request(options, function(err, res, body) {
+      let json = JSON.parse(body);
+      console.log(json);
+    });
+    
+    // client.query( SPARQL 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25')
+    //   .execute();
 
     res.json({
       replies: [
