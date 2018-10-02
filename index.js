@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
 const client = new SparqlClient('https://362a6880.ngrok.io/my_food/sparql')
    .register(
-     db: 'https://362a6880.ngrok.io/my_food/'
+     db: 'http://362a6880.ngrok.io/my_food/'
    );
 
 // Recast will send a post request to /errors to notify important errors
@@ -48,7 +48,13 @@ app.post('/find-restaurant', (req, res) => {
     });
 
     client.query( SPARQL 'SELECT ?subject ?predicate ?object WHERE { ?subject ?predicate ?object} LIMIT 25')
-      .execute();
+    .execute()
+    .then(function (results) {
+      console.dir(results, {depth: null});
+    })
+    .catch(function (error) {
+      // Oh noes! 🙀
+    });
 
 });
 
