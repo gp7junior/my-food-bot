@@ -13,11 +13,6 @@ app.use(bodyParser.json())
    .get('/', (req, res) => res.render('pages/index'))
    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-const client = new SparqlClient('https://362a6880.ngrok.io/my_food/sparql')
-   .register(
-     db: 'http://362a6880.ngrok.io/my_food/'
-   );
-
 // Recast will send a post request to /errors to notify important errors
 // described in a json body
 app.post('/errors', (req, res) => {
