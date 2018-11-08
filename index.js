@@ -28,12 +28,24 @@ app.post('/find-restaurant', (req, res) => {
         { "type": "carousel",
           "content": [
             {
-              "title": "CARD_1_TITLE",
-              "subtitle": "CARD_1_SUBTITLE",
+              "title": "My place to eat",
+              "subtitle": "A beautiful restaurant",
               "imageUrl": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixlib=rb-0.3.5&s=bf5b94b642532375b945fec883f6e8e2&auto=format&fit=crop&w=500&q=60",
               "buttons": [
                 {
-                  "title": "BUTTON_1_TITLE",
+                  "title": "Book a table",
+                  "type": "BUTTON_1_TYPE",
+                  "value": "BUTTON_1_VALUE"
+                }
+              ]
+            },
+            {
+              "title": "My second place to eat",
+              "subtitle": "Another beautiful restaurant",
+              "imageUrl": "https://images.unsplash.com/reserve/tHTHup3YTN6XsLwf43vY_IMG_8003.jpg?ixlib=rb-0.3.5&s=f016599f7772fa3d06eb5e821860c7a0&auto=format&fit=crop&w=1051&q=80",
+              "buttons": [
+                {
+                  "title": "Book a table",
                   "type": "BUTTON_1_TYPE",
                   "value": "BUTTON_1_VALUE"
                 }
