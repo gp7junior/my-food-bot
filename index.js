@@ -27,13 +27,14 @@ app.post('/errors', (req, res) => {
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
     var result = sparqlClient.query(' PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Restaurant }')
+    console.log(result);
     res.json({
       replies: [
         { "type": "carousel",
           "content": [
             {
               "title": "My first place to eat",
-              "subtitle": "${result[0]}",
+              "subtitle": ${result[0]},
               "imageUrl": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixlib=rb-0.3.5&s=bf5b94b642532375b945fec883f6e8e2&auto=format&fit=crop&w=500&q=60",
               "buttons": [
                 {
