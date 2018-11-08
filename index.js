@@ -1,11 +1,14 @@
 const express = require('express')
 const request = require('request'); // reconsider?
-const {SparqlClient, SPARQL} = require('sparql-client-2');
+const sparql = require('sparql');
 const bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
 const app = express();
+
+sparqlClient = new sparql.Client('https://java-http-myfood.herokuapp.com/data/query');
+
 app.use(bodyParser.json())
    .use(express.static(path.join(__dirname, 'public')))
    .set('views', path.join(__dirname, 'views'))
@@ -23,13 +26,14 @@ app.post('/errors', (req, res) => {
 // Setting up the routes
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
+    var result = sparqlClient.query(' PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Restaurant }')
     res.json({
       replies: [
         { "type": "carousel",
           "content": [
             {
-              "title": "My place to eat",
-              "subtitle": "A beautiful restaurant",
+              "title": "My first place to eat",
+              "subtitle": "${result[0]}",
               "imageUrl": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixlib=rb-0.3.5&s=bf5b94b642532375b945fec883f6e8e2&auto=format&fit=crop&w=500&q=60",
               "buttons": [
                 {
@@ -46,8 +50,8 @@ app.post('/find-restaurant', (req, res) => {
               "buttons": [
                 {
                   "title": "Book a table",
-                  "type": "BUTTON_1_TYPE",
-                  "value": "BUTTON_1_VALUE"
+                  "type": "BUTTON_2_TYPE",
+                  "value": "BUTTON_2_VALUE"
                 }
               ]
             }
