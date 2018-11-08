@@ -42,7 +42,7 @@ app.post('/find-restaurant', (req, res) => {
             {
               "title": "My second place to eat",
               "subtitle": "Another beautiful restaurant",
-              "imageUrl": "https://images.unsplash.com/reserve/tHTHup3YTN6XsLwf43vY_IMG_8003.jpg?ixlib=rb-0.3.5&s=f016599f7772fa3d06eb5e821860c7a0&auto=format&fit=crop&w=1051&q=80",
+              "imageUrl": "https://images.unsplash.com/reserve/tHTHup3YTN6XsLwf43vY_IMG_8003.jpg?ixlib=rb-0.3.5&s=f016599f7772fa3d06eb5e821860c7a0&auto=format&fit=crop&w=500&q=60",
               "buttons": [
                 {
                   "title": "Book a table",
