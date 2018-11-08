@@ -1,12 +1,12 @@
 const express = require('express')
-const request = require('request'); // reconsider?
+const request = require('request-promise'); // reconsider?
 const bodyParser = require('body-parser')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
-const app = express();
-
 const sparql_enpoint = 'https://java-http-myfood.herokuapp.com/data/query';
+
+const app = express();
 
 app.use(bodyParser.json())
    .use(express.static(path.join(__dirname, 'public')))
@@ -25,7 +25,17 @@ app.post('/errors', (req, res) => {
 // Setting up the routes
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
-    
+    const oprtions = {
+      method: 'GET',
+      uri: sparql_enpoint,
+      qs: {'PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Restaurant }'}
+    }
+    request(options)
+      .then( (query_result) => {
+        console.log(query_result)
+      })
+      .catch((err) => {console.log(err)});
+
     res.json({
       replies: [
         { "type": "carousel",
