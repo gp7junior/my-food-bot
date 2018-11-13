@@ -1,8 +1,8 @@
 const express = require('express')
 const request = require('request-promise'); // reconsider?
-const bodyParser = require('body-parser')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const bodyParser = require('body-parser');
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 const sparql_enpoint = 'https://java-http-myfood.herokuapp.com/data/query';
 
@@ -25,17 +25,49 @@ app.post('/errors', (req, res) => {
 // Setting up the routes
 //app.post('/find-restaurant', findRestaurants);
 app.post('/find-restaurant', (req, res) => {
-    const oprtions = {
+    const options = {
       method: 'GET',
-      uri: sparql_enpoint,
-      qs: 'PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Restaurant }'
+      url: sparql_enpoint,
+      qs: {query: 'PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Restaurant }'}
     }
+
     request(options)
       .then( (query_result) => {
-        console.log(query_result)
-      })
-      .catch((err) => {console.log(err)});
+        var obj = JSON.parse(query_result);
+        var array_result = obj.result;
+        console.log(array_result);
+        for (let item of array_result) {
+          console.log(item);
+        }
+        
+        var data_result_JSON = [];
+        Object.keys(array_result).forEach(function(object){
+          data_result_JSON.push({
+              "title": array_result[object],
+              "subtitle": "A beautiful restaurant",
+              "imageUrl": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixlib=rb-0.3.5&s=bf5b94b642532375b945fec883f6e8e2&auto=format&fit=crop&w=500&q=60",
+              "buttons": [
+                {
+                  "title": "Book a table",
+                  "type": "BUTTON_1_TYPE",
+                  "value": "BUTTON_1_VALUE"
+                }
+              ] 
+          });
+        });
 
+        res.json({
+          replies: [
+            { "type": "carousel",
+              "content": data_result_JSON
+            }
+          ]
+        });
+
+      })
+      .catch((err) => {console.log(err)});  
+
+    /* 
     res.json({
       replies: [
         { "type": "carousel",
@@ -68,9 +100,28 @@ app.post('/find-restaurant', (req, res) => {
         },
       ],
     });
+    */
+    
 });
 
 app.post('/find-restaurant-by-cuisine', (req, res) => {
+    const options = {
+      method: 'GET',
+      url: sparql_enpoint,
+      qs: {query: 'PREFIX myfood: <http://www.semanticweb.org/gp7junior/ontologies/2018/6/my-food-ontology#> SELECT ?subject ?object WHERE { ?subject rdf:type myfood:Cuisine }'}
+    }
+
+    request(options)
+      .then( (query_result) => {
+        var obj = JSON.parse(query_result);
+        var array_result = obj.result;
+        console.log(array_result);
+        for (let item of array_result) {
+          console.log(item);
+        }
+      })
+      .catch((err) => {console.log(err)});
+
     res.json({
       replies: [
         { type: 'text', content: `I still have to implement this skill find restaurant by cuisine ` },
