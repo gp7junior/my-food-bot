@@ -1,0 +1,14 @@
+# Queries on Graql:
+
+# insert 
+
+# - inserting a cuisine
+insert $x isa cuisine has name "Japanese";
+insert $x isa cuisine has name "Chinese";
+
+# - inserting cuisines with some similarity value
+match 
+$x isa cuisine has name "Japanese"; 
+$y isa cuisine has name "Chinese"; 
+insert 
+(similar:$x,similar:$y) isa is-similar-to has similarity-value 0.5;

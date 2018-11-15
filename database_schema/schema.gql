@@ -1,0 +1,95 @@
+define
+
+# ###################################################################
+# Classes 
+# ###################################################################
+
+"restaurant" sub entity
+    has name
+    has phone
+    has mail
+    plays specialized
+    plays server
+    plays menu-owner;
+"location" sub entity
+    has municipality;
+"menu" sub entity
+    has start-date
+    has end-date
+    plays owned
+    plays lister;
+"cuisine" sub entity
+    has name
+    plays specialization
+    plays similar;
+"ingredient" sub entity
+    has allergen
+    plays contained;
+"food" sub entity
+    has price
+    has description
+    plays served
+    plays listed;
+"dish" sub food
+    has first-course
+    has second-course
+    has vegetarian
+    plays container;
+
+# ###################################################################
+# Relationships / Object properties
+# ###################################################################
+
+"specialized-in" sub relationship 
+    relates specialized 
+    relates specialization;
+
+"serves" sub relationship
+    relates server
+    relates served;
+
+"has-menus" sub relationship
+    relates menu-owner
+    relates owned;
+
+"contains" sub relationship
+    relates container
+    relates contained;
+
+"is-similar-to" sub relationship
+    has similarity-value
+    relates similar;
+
+"lists" sub relationship
+    relates lister
+    relates listed;
+
+# ###################################################################
+# Attributes / Data Properties
+# ###################################################################
+
+"name"              sub attribute datatype string;
+"phone"             sub attribute datatype long;
+"mail"              sub attribute datatype string;
+"municipality"      sub attribute datatype string;
+"start-date"        sub attribute datatype date;
+"end-date"          sub attribute datatype date;
+"allergen"          sub attribute datatype boolean;
+"price"             sub attribute datatype double;
+"description"       sub attribute datatype string;
+"first-course"      sub attribute datatype boolean;
+"second-course"     sub attribute datatype boolean;
+"vegetarian"        sub attribute datatype boolean;
+"similarity-value"  sub attribute datatype double;
+
+# ###################################################################
+# Rules
+# ###################################################################
+
+# restaurant-specialization
+# when {
+#     (specialized:$r, specialization:$c) isa specialized-in;
+# }, 
+# then {
+#     $r isa # $c+Restauramt ? 
+# };
