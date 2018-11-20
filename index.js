@@ -2,28 +2,23 @@ const express = require('express')
 const request = require('request-promise'); // reconsider?
 const bodyParser = require('body-parser');
 const path = require('path');
+const routes = require('./routes/routes.js');
+
 const PORT = process.env.PORT || 5000;
 
-const sparql_enpoint = 'https://java-http-myfood.herokuapp.com/data/query';
+//const sparql_enpoint = 'https://java-http-myfood.herokuapp.com/data/query';
 
 const app = express();
 
 app.use(bodyParser.json())
-   .use(express.static(path.join(__dirname, 'public')))
-   .set('views', path.join(__dirname, 'views'))
-   .set('view engine', 'ejs')
-   .get('/', (req, res) => res.render('pages/index'))
-   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    .use('/data', routes)
+    .use(express.static(path.join(__dirname, 'public')))
+    .set('views', path.join(__dirname, 'views'))
+    .set('view engine', 'ejs')
+    .get('/', (req, res) => res.render('pages/index'))
+    .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-// Recast will send a post request to /errors to notify important errors
-// described in a json body
-app.post('/errors', (req, res) => {
-    console.error(req.body);
-    res.sendStatus(200);
-});
-
-// Setting up the routes
-//app.post('/find-restaurant', findRestaurants);
+/*
 app.post('/find-restaurant', (req, res) => {
     const options = {
       method: 'GET',
@@ -101,9 +96,11 @@ app.post('/find-restaurant', (req, res) => {
       ],
     });
     */
-    
+/*    
 });
+*/
 
+/*
 app.post('/find-restaurant-by-cuisine', (req, res) => {
     const options = {
       method: 'GET',
@@ -128,3 +125,4 @@ app.post('/find-restaurant-by-cuisine', (req, res) => {
       ],
     });
 });
+*/
