@@ -1,6 +1,9 @@
 const express = require('express');
 const dbSetupRestaurant = require('../controllers/dbSetupRestaurant.js');
 const dbSetupRestaurantCuisine = require('../controllers/dbSetupRestaurantCuisine.js');
+const readQuery = require('../controllers/readQuery.js');
+const util = require('util');
+const fs = require('fs');
 
 var router = express.Router();
 
@@ -16,7 +19,9 @@ router.post('/errors', (req, res) => {
 //app.post('/find-restaurant', findRestaurants);
 //TODO: improve the query to find a restaurant
 router.post('/find-restaurant', (req, res) => {
-  const restaurants = dbSetupRestaurant();
+  var query_txt = "match $x isa restaurant; get;";
+
+  const restaurants = dbSetupRestaurant(query_txt);
 
   var data_result_JSON = [];
 
@@ -52,7 +57,9 @@ router.post('/find-restaurant', (req, res) => {
 //app.post('/find-restaurant-by-cuisine', findRestaurantsByCuisine);
 //TODO: improve the query to find a restaurant by cuisine
 router.post('/find-restaurant-by-cuisine', (req, res) => {
-  const cuisines = dbSetupRestaurantCuisine();
+  var query_txt = "match $x isa cuisine; get;";
+  
+  const cuisines = dbSetupRestaurantCuisine(query_txt);
 
   var data_result_JSON = [];
 
@@ -84,6 +91,21 @@ router.post('/find-restaurant-by-cuisine', (req, res) => {
         });
       });
 
+});
+
+router.post('/print_query', (req,res) => {
+  var query_path = './models/query_rest_cuisine.gql';
+  
+  const readFile = util.promisify(fs.readFile);
+
+  async function getStuff() {
+      return await readFile(query_path);
+  }
+
+  getStuff().then(data => {
+      console.log("data:" + data);
+  })
+  
 });
 
 //TODO: add more routes according to what we want to get from our database

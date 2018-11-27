@@ -1,8 +1,6 @@
 const Grakn = require('grakn');
 
-async function queryGraknRestaurant(session) {
-
-    var query_txt = "match $x isa restaurant; get;";
+async function queryGraknRestaurant(session, query_txt) {
 
     /*
     //TODO: write the code to read a query form an external file in models folder
